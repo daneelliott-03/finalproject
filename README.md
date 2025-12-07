@@ -52,35 +52,18 @@ Final Project: Product Recommendation System/
 
 ---
 ## Modules 
-Overview 
-# Estimation 
 
-estimate_arrival_rates(data) 
-converts raw trip logs into hourly rate estimates (mu_hat) between station pairs 
+# 1. reviews.R 
 
-# Simulation 
+# 2. demographic_analysis.R
 
-Extract_hour(estimates, origin, dest) 
-pulls out the hourly rate vector for a station pair. 
+# 3. similarpersonarecs.R
 
-Sim_station_pair(hourly_rates, origin, dest) 
-takes the hourly rates for one origin–destination pair and generates 
-a realistic set of random trip times for that pair 
+# 4. regression.R
 
-Sim_full_day(estimates) 
-runs through allstation pairs and returns a combined day of demand.
+# 5. stability.R
 
-# Optimization 
-
-Sim_trips_one_day(demand_day, placement) 
-marks each trip as successful or failed given starting bike counts. 
-
-evaluate_placement(demand_list, placement) 
-computes average failed trips per day. 
-
-optimize_bikes_greedy(demand_list, estimates, total_bikes) 
-uses a greedy method to allocate a fixed fleet of bikes across stations to 
-minimize failures 
+# 6. recommendation_system.R
 
 --- 
 ## Testing 
@@ -90,6 +73,10 @@ If you run source("testing.R") and get no errors, the basic logic is working.
 --- 
 ## Significance 
 
-Bike share systems face variable demand across stations and hours. 
-This project brings together demand estimation, simulation of realistic events, 
-and optimizing limited resources to assist with meeting demand. 
+Beauty and skincare products are used by a wide variety of people, but most
+products are marketed broadly without consideration for different skin tones
+and skin types. This project analyzes various Sephora products and their reviews,
+focusing on factors such as skin tone, skin type, and product category in order 
+to understand how ratings vary across demographics. By accounting for these 
+characteristics, the pipeline is able to determine the most optimal products for 
+each user while also allowing for price adjustment.
