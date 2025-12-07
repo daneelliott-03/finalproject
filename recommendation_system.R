@@ -3,6 +3,13 @@ library(fastDummies)
 library(tidyr)
 library(lsa)
 
+source("reviews.R")
+source("demographic_analysis.R")
+source("similarpersonarecs.R")
+source("regression.R")
+source("stability.R")
+
+
 df_rel <- df %>%
   filter(secondary_category %in% c(
     "Moisturizers","Treatments","Cleansers",
@@ -22,14 +29,13 @@ df_rel <- df %>%
 
 user_demo <- df_rel %>%
   select(author_id, skin_type, skin_tone_bucket) %>%
-  distinct(author_id, .keep_all = TRUE) %>%   # ensures 1 row per user
+  distinct(author_id, .keep_all = TRUE) %>%   # 1 row per user
   fastDummies::dummy_cols(
     select_columns = c("skin_type", "skin_tone_bucket"),
     remove_selected_columns = TRUE
   )
 
 # category preference dummy matrix
-
 cat_pref <- df_rel %>%
   group_by(author_id, secondary_category) %>%
   summarise(n = n(), .groups = "drop") %>%
@@ -44,7 +50,6 @@ cat_pref <- df_rel %>%
   )
 
 # Final user vectors matrix
-
 user_vectors <- user_demo %>%
   inner_join(cat_pref, by = "author_id") %>%
   mutate(across(where(is.numeric), ~replace_na(., 0)))
@@ -103,7 +108,7 @@ recommend_similar_products <- function(df_rel,
       filter(secondary_category == category)
   }
   
-  # compute recommendations
+  # calculate recommendations
   recs <- df_sub %>%
     group_by(product_id, product_name, brand_name, price_usd) %>%
     summarise(

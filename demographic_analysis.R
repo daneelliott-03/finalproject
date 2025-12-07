@@ -1,3 +1,4 @@
+source("reviews.R")
 
 summarize_ratings_by_demographic <- function(df, demographic_var, grouping_var) {
   df_sub <- df[!is.na(df[[demographic_var]]), ]

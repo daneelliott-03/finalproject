@@ -1,3 +1,7 @@
+source("reviews.R")
+source("demographic_analysis.R")
+source("similarpersonarecs.R")
+
 relevant_cats <- c(skin_type_categories, skin_tone_categories)
 
 df_rel <- df %>%

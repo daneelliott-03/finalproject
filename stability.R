@@ -1,8 +1,13 @@
 library(tidyverse)
 library(kableExtra)
 
+source("reviews.R")
+source("demographic_analysis.R")
+source("similarpersonarecs.R")
+source("regression.R")
+
 # created this to show how far apart types are within categories overall and not
-# within one produuct
+# within one product
 
 min_cell_n <- 20
 
