@@ -54,16 +54,40 @@ Final Project: Product Recommendation System/
 ## Modules 
 
 # 1. reviews.R 
+Data Preparation
+* Merges review data with product metadata
+* Adds category variables (major_category, is_complexion) 
+* Functions needed to summarizes ratings by product and category
 
-# 2. demographic_analysis.R
+# 2. demographic_analysis.R 
+Demographic Rating Comparions
+* summarize_ratings_by_demographic()
+  * Calculates mean, sd, low/high ratings by skin tone and type
+* compute_within_product_gaps()
+  * Measures rating gaps across demograpgic groups within each product
 
 # 3. similarpersonarecs.R
+Baseline Recommendations
+* Filters by skin type, tone, and category
+* Produces top products for a given demographic
 
 # 4. regression.R
+Predictive Model
+* Logistic regression to estimte probability of giving a high rating 
+* Interaction between demographic and product category
 
 # 5. stability.R
+Rating Stability Across Demographics
+* Computes rating across skin types and tones at the category level
+* Classifies products as stable, moderate, or volatile based on rating gaps
+  * Finds products with biggest gaps
 
 # 6. recommendation_system.R
+Final Similarity Recommendation Pipeline
+* Forms demographic and behavior user vectors
+* Computes cosine similarity to find users most similar to a persona
+* Collects top user ratings to generate personalized recs
+* Allows for filtering by category (e.g. moisturizer), price (0-40usd), and min reviews
 
 --- 
 ## Testing 
