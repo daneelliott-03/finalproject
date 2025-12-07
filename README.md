@@ -8,8 +8,9 @@ station demand, simulate daily trips, and optimizing bike allocations.
 --- 
 ## Quick Start 
 
-Install required packages:
 ```r
+1. Install required packages:
+
    install.packages(c("tidyverse", "dplyr", "kableExtra", "fastDummies"))
 
 2. Load the code
@@ -36,6 +37,14 @@ df <- add_category_variables(df)
 
 4. Run the pipeline
 
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "combination",
+                           persona_skin_tone = "Deep",
+                           price_min = 0,
+                           price_max = 20,
+                           category = "Moisturizers",
+                           n_recs = 5
+)
 
 ```
 
