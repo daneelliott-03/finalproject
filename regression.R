@@ -1,0 +1,27 @@
+relevant_cats <- c(skin_type_categories, skin_tone_categories)
+
+df_rel <- df %>%
+  filter(secondary_category %in% relevant_cats)
+
+df_rel <- df_rel %>%
+  mutate(
+    skin_tone_bucket = case_when(
+      skin_tone %in% c("fair", "porcelain", "fairLight") ~ "Fair",
+      skin_tone %in% c("light", "lightMedium") ~ "Light",
+      skin_tone %in% c("medium", "mediumTan", "olive") ~ "Medium",
+      skin_tone %in% c("tan") ~ "Tan",
+      skin_tone %in% c("deep", "rich", "dark") ~ "Deep",
+      TRUE ~ NA_character_
+    ),
+    high_rating = rating >= 4
+  )
+
+glm_interact <- glm(
+  high_rating ~ 
+    skin_type * secondary_category +
+    skin_tone_bucket * secondary_category +
+    price_usd,
+  data = df_rel,
+  family = binomial
+)
+summary(glm_interact)
