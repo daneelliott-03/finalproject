@@ -9,7 +9,7 @@ source("similarpersonarecs.R")
 source("regression.R")
 source("stability.R")
 
-
+# include only relevant products and utilize skin tone bucket
 df_rel <- df %>%
   filter(secondary_category %in% c(
     "Moisturizers","Treatments","Cleansers",
@@ -26,7 +26,6 @@ df_rel <- df %>%
   )
 
 # user demographic dummy matrix
-
 user_demo <- df_rel %>%
   select(author_id, skin_type, skin_tone_bucket) %>%
   distinct(author_id, .keep_all = TRUE) %>%   # 1 row per user
@@ -38,9 +37,9 @@ user_demo <- df_rel %>%
 # category preference dummy matrix
 cat_pref <- df_rel %>%
   group_by(author_id, secondary_category) %>%
-  summarise(n = n(), .groups = "drop") %>%
+  summarise(n = n(), .groups = "drop") %>% # counts of reviews
   group_by(author_id) %>%
-  mutate(freq = n / sum(n)) %>%  # preference share
+  mutate(freq = n / sum(n)) %>% 
   ungroup() %>%
   select(author_id, secondary_category, freq) %>%
   tidyr::pivot_wider(
@@ -49,17 +48,24 @@ cat_pref <- df_rel %>%
     values_fill = 0
   )
 
-# Final user vectors matrix
+# Final user vectors matrix (demographics + preference)
 user_vectors <- user_demo %>%
   inner_join(cat_pref, by = "author_id") %>%
   mutate(across(where(is.numeric), ~replace_na(., 0)))
 
+#' @description: Persona Function
+#' Create a fake persona vector with same structure as user vectors
+#' @param user_vectors
+#' Full user feature matrix
+#' @param skin_type Persons skin type as a string
+#' @param skin_tone Persons skin tone as a string
+#' @return Data frame
+#' One row dataframe displaying the persona as a feature vector
 
-# persona vector
 build_persona_vec <- function(user_vectors, skin_type, skin_tone) {
   vec <- user_vectors %>% slice(1) %>% mutate(across(everything(), ~0))
   
-  st_col <- paste0("skin_type_", tolower(skin_type))
+  st_col <- paste0("skin_type_", tolower(skin_type)) # form column names
   tone_col <- paste0("skin_tone_bucket_", skin_tone)
   
   if (st_col %in% names(vec)) vec[[st_col]] <- 1
@@ -68,7 +74,22 @@ build_persona_vec <- function(user_vectors, skin_type, skin_tone) {
   return(vec)
 }
 
-# recommendation function
+#' @description: Recommendation function
+#' Identifies top most similar user to a specific persona then recommends the
+#' products those users rated highly. Filtered by category and price.
+#' @param df_rel filtered dataset with relevant products/categories
+#' @param user_vectors 
+#' @param persona_skin_type user skin type
+#' @param persona_skin_tone user skin tone
+#' @param category product type/category (e.g. moisturizer)
+#' @param price_min minimum price for product
+#' @param price_max maximum price for product
+#' @param top_k_users number of users extracted for the similarity matrix
+#' @param n_recs number of recommendations desired
+#' @param min_reviews minimum number of reviews needed for product to count
+#' @return Tibble
+#' Displays recommended products for a particular demographic with respect to
+#' price and the specific product.
 
 recommend_similar_products <- function(df_rel,
                                        user_vectors,

@@ -4,9 +4,11 @@ source("similarpersonarecs.R")
 
 relevant_cats <- c(skin_type_categories, skin_tone_categories)
 
+# filter to only skincare categories where demographic matters
 df_rel <- df %>%
   filter(secondary_category %in% relevant_cats)
 
+# create skin tone buckets for more simple groupings
 df_rel <- df_rel %>%
   mutate(
     skin_tone_bucket = case_when(
@@ -20,6 +22,7 @@ df_rel <- df_rel %>%
     high_rating = rating >= 4
   )
 
+# predict probability of a user granting a high rating (4+)
 glm_interact <- glm(
   high_rating ~ 
     skin_type * secondary_category +
