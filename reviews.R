@@ -1,6 +1,4 @@
 ####REVIEWS##################################################################
-
-
 library(tidyverse)
 
 # product metadata
@@ -17,6 +15,7 @@ reviews_750_1250 <- read_csv("/Users/dane75862/Desktop/final project/reviews_750
                              show_col_types = FALSE)
 reviews_1250_end <- read_csv("/Users/dane75862/Desktop/final project/reviews_1250-end.csv",
                              show_col_types = FALSE)
+
 # needed to standardize ID column types
 reviews_0_250$author_id <- as.character(reviews_0_250$author_id)
 reviews_250_500$author_id <- as.character(reviews_250_500$author_id)

@@ -1,6 +1,5 @@
-library(dplyr)
+library(tidyverse)
 library(fastDummies)
-library(tidyr)
 library(lsa)
 
 source("reviews.R")
@@ -14,47 +13,45 @@ df_rel <- df %>%
   filter(secondary_category %in% c(
     "Moisturizers","Treatments","Cleansers",
     "Masks","Sunscreen","Self Tanners")) %>%
-  mutate(
-    skin_tone_bucket = case_when(
+  mutate(skin_tone_bucket = case_when(
       skin_tone %in% c("fair", "porcelain", "fairLight") ~ "Fair",
       skin_tone %in% c("light", "lightMedium") ~ "Light",
       skin_tone %in% c("medium", "mediumTan", "olive") ~ "Medium",
       skin_tone %in% c("tan") ~ "Tan",
       skin_tone %in% c("deep", "rich", "dark") ~ "Deep",
-      TRUE ~ NA_character_
-    )
-  )
+      TRUE ~ NA_character_))
 
 # user demographic dummy matrix
 user_demo <- df_rel %>%
   select(author_id, skin_type, skin_tone_bucket) %>%
   distinct(author_id, .keep_all = TRUE) %>%   # 1 row per user
-  fastDummies::dummy_cols(
-    select_columns = c("skin_type", "skin_tone_bucket"),
-    remove_selected_columns = TRUE
-  )
+  # converts categorical columns into 0/1 indicator columms. this is needed because 
+  # lsa::cosine expects numeric vectors. 
+  fastDummies::dummy_cols(select_columns = c("skin_type", "skin_tone_bucket"),
+    remove_selected_columns = TRUE)
 
-# category preference dummy matrix
+# counts how many reviews each user has in each secondary category, 
+# within each author_id we need the freq (of everything this user reviewed,
+# what fraction are moisturizers, sunscreens 
+# then we make this wide with one column per category and values with the fraction 
+# of user reviews in that category
 cat_pref <- df_rel %>%
   group_by(author_id, secondary_category) %>%
-  summarise(n = n(), .groups = "drop") %>% # counts of reviews
+  summarise(n = n(), .groups = "drop") %>%
   group_by(author_id) %>%
   mutate(freq = n / sum(n)) %>% 
   ungroup() %>%
   select(author_id, secondary_category, freq) %>%
-  tidyr::pivot_wider(
-    names_from = secondary_category,
+  pivot_wider(names_from = secondary_category,
     values_from = freq,
-    values_fill = 0
-  )
+    values_fill = 0)
 
-# Final user vectors matrix (demographics + preference)
 user_vectors <- user_demo %>%
   inner_join(cat_pref, by = "author_id") %>%
   mutate(across(where(is.numeric), ~replace_na(., 0)))
 
-#' @description: Persona Function
-#' Create a fake persona vector with same structure as user vectors
+#' @description: # takes the first row of user_vectors for struture then zeros out everything
+# then makes the column names correspond to the persona's skin type and tone. 
 #' @param user_vectors
 #' Full user feature matrix
 #' @param skin_type Persons skin type as a string

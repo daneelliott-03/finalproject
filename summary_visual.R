@@ -1,3 +1,7 @@
+####SUMMARY VISUAL##################################################################
+source("reviews.R")
+source("demographic_analysis.R")
+
 ## graph to show summary for volatility information 
 # (% of reviews with gaps over .75 for skin tone)
 skin_type_cat_vol_long <- skin_type_cat_vol %>%
@@ -22,7 +26,7 @@ ggplot(skin_type_cat_vol_long,
     "Moderate" = "#9ECAE1",
     "Volatile" = "#08519C"  )) +
   theme_minimal() +
-  labs(title = "Within each category, share of products across skin types",
+  labs(title = "Within each category, share of products that are X across skin types",
     x = NULL,
     y = "Proportion of Products",
     z = "Product Type")
@@ -34,9 +38,8 @@ skin_tone_cat_vol_long <- skin_tone_cat_vol %>%
     prop_stable,
     prop_moderate,
     prop_volatile) %>%
-  pivot_longer(
-    cols = starts_with("prop_"),
-    names_to  = "stability",
+  pivot_longer(cols = starts_with("prop_"),
+    names_to = "stability",
     values_to = "prop") %>%
   mutate(stability = recode(stability,
       prop_stable = "Stable",
@@ -52,7 +55,7 @@ ggplot(skin_tone_cat_vol_long,
     "Moderate" = "#FCAE91",
     "Volatile" = "#CB181D")) +
   theme_minimal() +
-  labs(title = "Within each category, share of products that are across skin tones",
+  labs(title = "Within each category, share of products that are X across skin tones",
     x = NULL,
     y = "Proportion of Products",
     fill = "Stability")

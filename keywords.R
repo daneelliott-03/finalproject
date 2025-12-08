@@ -1,4 +1,8 @@
 ####  KEYWORDSSSS ################################################
+library(tidyverse)
+source("reviews.R")
+source("demographic_analysis.R")
+
 #' @description This function loops through a list of keywords and counts 
 #' how many times each one appears in a text column.
 #' 

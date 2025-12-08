@@ -1,3 +1,6 @@
+####DEMOGRAPHIC ANALYSIS##################################################################
+source("reviews.R")
+
 library(tidyverse)
 library(kableExtra)
 
@@ -146,8 +149,7 @@ kable(skin_type_cat_spread,
 skin_tone_cat_spread <- skin_tone_by_category %>%
   filter(n_reviews >= min_cell_n) %>%   
   group_by(secondary_category) %>%
-  summarise(
-    n_reviews_total = sum(n_reviews),
+  summarise(n_reviews_total = sum(n_reviews),
     n_skin_tones = n(), 
     max_mean = max(mean_rating, na.rm = TRUE),
     min_mean = min(mean_rating, na.rm = TRUE),
@@ -171,8 +173,7 @@ skin_type_stability <- skin_type_gaps %>%
          min_skin_type = min_group)
 
 skin_tone_stability <- skin_tone_gaps %>%
-  mutate(
-    stability_skin_tone = case_when(
+  mutate(stability_skin_tone = case_when(
       gap < 0.25 ~ "Stable",
       gap > 0.75 ~ "Volatile",
       TRUE ~ "Moderate"
@@ -227,7 +228,7 @@ skin_tone_category_summary <- skin_tone_cat_spread %>%
       select(secondary_category, prop_volatile, prop_stable),
     by = "secondary_category"
   ) %>% 
-  filter(secondary_category %in% skin_tone_categories)
+filter(secondary_category %in% skin_tone_categories)
 
 kable(skin_tone_category_summary,
   caption = "Rating spread and volatility across skin tones by category.")
