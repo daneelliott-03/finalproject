@@ -42,7 +42,8 @@ count_keywords <- function(text_column, keywords_list) {
 #' two user groups  (e.g., "Fair" vs "Deep" skin tones) for a product set.
 #'
 #' @param data A dataframe, requires a numeric rating column
-#' @param target_ids A vector of product IDs to include in the analysis
+#' @param keyword_vec Character vector of keywords/phrases to search for
+#' @param category Character vector of secondary_category values to include
 #' @param group_col A string specifying the column name to group by
 #' @param group_a The control group 
 #' @param group_b The test group 
@@ -51,11 +52,9 @@ count_keywords <- function(text_column, keywords_list) {
 run_keyword_disparity <- function(data, keyword_vec, category,
                                   group_col, group_a, group_b) {
   sub <- data %>%
-    filter(
-      secondary_category %in% category,
+    filter(secondary_category %in% category,
       !is.na(review_text),
-      !is.na(.data[[group_col]])
-    )
+      !is.na(.data[[group_col]]))
   # turns the vector of keywords into one big regex pattern
   # using \\b so we only match whole words/phrases
   # e.g. "ashy" but not "flashy"
@@ -70,11 +69,9 @@ run_keyword_disparity <- function(data, keyword_vec, category,
   
   # now run the t-test helper just on flagged products
   # comparing the two groups passed in
-  run_disparity_test(
-    data = sub,
+  run_disparity_test(data = sub,
     target_ids = keyword_ids,
     group_col = group_col,
     group_a = group_a,
-    group_b = group_b
-  )
+    group_b = group_b)
 }

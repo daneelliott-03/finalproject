@@ -4,6 +4,23 @@ source("reviews.R")
 source("demographic_analysis.R")
 source("keywords.R")
 
+### SUMMARIZE_RATINGS_BY_DEMOGRAPHIC TEST
+test_skin_type_cat <- summarize_ratings_by_demographic(df,
+  demographic_var = "skin_type",
+  grouping_var    = "secondary_category"
+)
+
+head(test_skin_type_cat)
+summary(test_skin_type_cat$mean_rating)
+
+test_skin_tone_cat <- summarize_ratings_by_demographic(df,
+  demographic_var = "skin_tone",
+  grouping_var = "secondary_category"
+)
+
+head(test_skin_tone_cat)
+summary(test_skin_tone_cat$mean_rating)
+
 ### COUNT_KEYWORDS TEST
 
 ## TEST 1: counting keywords
@@ -92,7 +109,6 @@ run_keyword_disparity(
   group_a = "oily",
   group_b = "normal"
 )
-
 
 
 
