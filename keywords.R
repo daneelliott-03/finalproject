@@ -42,8 +42,8 @@ count_keywords <- function(text_column, keywords_list) {
 #' @param data A dataframe with at least rating, product_id, and group_col.
 #' @param target_ids A vector of product_ids to include.
 #' @param group_col A string giving the column name that defines groups
-#' @param group_a The "reference" group label
-#' @param group_b The "comparison" group label
+#' @param group_a The reference group label
+#' @param group_b The comparison group label
 #'
 #' @return A one row dataframe with the rating gap (group_b - group_a),
 #'   p-value, significance flag, and group means

@@ -84,7 +84,7 @@ run_keyword_disparity(data = df,
   group_a = "Fair",
   group_b = "Deep")
 
-# TEST 3: skiny after moisturize 
+# TEST 3: shiny after moisturize 
 run_keyword_disparity(data = df,
   keyword_vec = c("greasy", "oily", "shiny"),
   category = c("Moisturizers"),
