@@ -96,10 +96,8 @@ Final Similarity Recommendation Pipeline
 * Allows for filtering by category (e.g. moisturizer), price (0-40usd), and min reviews
 
 # 5. sephora_data_project_example.R
-Visualizations
 * Basic visualizations of rating averages in the initial dataset.
 * disparity_reviews.R - graph displaying keywords
-Use Cases
 * User examples of each function.
 
 --- 
