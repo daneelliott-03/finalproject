@@ -1,5 +1,3 @@
-source("reviews.R")
-
 library(tidyverse)
 library(kableExtra)
 
@@ -63,6 +61,8 @@ compute_within_product_gaps <- function(df, demographic_var, filter_vec, min_rev
       max_mean = max(mean_rating),
       min_mean = min(mean_rating),
       gap = max_mean - min_mean,
+      max_group = .data[[demographic_var]][which.max(mean_rating)],
+      min_group = .data[[demographic_var]][which.min(mean_rating)],
       .groups = "drop"
     ) %>%
     filter(
