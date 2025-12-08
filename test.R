@@ -4,6 +4,12 @@ source("demographic_analysis.R")
 source("keywords.R")
 
 df_test <- tibble(product_id = c(1, 1, 1, 2, 2, 2,3, 3, 3, 3, 3, 4, 4, 4),
+  author_id = c(1,2,3,1,2,3,4,5,6,4,5,7,8,9),
+  brand_name = c("Brand A", "Brand A", "Brand A",
+                 "Brand B", "Brand B", "Brand B",
+                 "Brand C", "Brand C", "Brand C", "Brand C", "Brand C",
+                 "Brand D", "Brand D", "Brand D"),
+  price_usd = c(20,20,20,15,15,15,30,30,30,30,30,25,25,25),
   product_name = c("Prod A", "Prod A", "Prod A",
     "Prod B", "Prod B", "Prod B",
     "Prod C", "Prod C", "Prod C", "Prod C", "Prod C",
