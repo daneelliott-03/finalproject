@@ -128,3 +128,61 @@ kw_disp_breakouts_treat_small <- run_keyword_disparity(data = df_test,
   group_b = "normal")
 
 kw_disp_breakouts_treat_small
+
+## BUILD_PERSONA_VEC
+
+# TEST 1
+users_vector_test <- tibble( # fake user vector testing
+  author_id = "user1",
+  skin_type_oily = 0,
+  skin_type_dry = 0,
+  skin_tone_bucket_Fair = 0,
+  skin_tone_bucket_Deep = 0
+)
+test_user1 <- build_persona_vec(
+  user_vectors = users_vector_test,
+  skin_type = "oily",
+  skin_tone = "Deep"
+)
+test_user1
+
+# TEST 2
+
+users_vector_test2 <- tibble( # fake user vector testing
+  author_id = "user2",
+  skin_type_oily = 0,
+  skin_type_dry = 0,
+  skin_type_combination = 0,
+  skin_tone_bucket_Fair = 0,
+  skin_tone_bucket_Medium = 0,
+  skin_tone_bucket_Deep = 0
+)
+
+test_user2 <- build_persona_vec(
+  user_vectors = users_vector_test2,
+  skin_type = "dry",
+  skin_tone = "Fair"
+)
+test_user2
+
+# TEST 3
+user_vectors_test3 <- tibble( 
+  author_id = "user3", 
+  skin_type_oily = 0, 
+  skin_type_dry = 0, 
+  skin_type_combination = 0, 
+  skin_tone_bucket_Fair = 0, 
+  skin_tone_bucket_Medium = 0, 
+  skin_tone_bucket_Deep = 0 
+)
+
+test_user_3 <- build_persona_vec(
+  user_vectors = user_vectors_test3, 
+  skin_type = "normal", # NOT a real column 
+  skin_tone = "Tan" # NOT a real column 
+) 
+test_user_3
+
+
+
+
