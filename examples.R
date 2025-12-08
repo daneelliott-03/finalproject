@@ -3,6 +3,7 @@
 source("reviews.R")
 source("demographic_analysis.R")
 source("keywords.R")
+source("recommendation_system.R")
 
 ### SUMMARIZE_RATINGS_BY_DEMOGRAPHIC TEST
 test_skin_type_cat <- summarize_ratings_by_demographic(df,
@@ -20,6 +21,30 @@ test_skin_tone_cat <- summarize_ratings_by_demographic(df,
 
 head(test_skin_tone_cat)
 summary(test_skin_tone_cat$mean_rating)
+
+
+### COMPUTE_WITHIN_PRODUCT_GAPS TEST
+
+# TEST 1: Identify products with large rating gaps across skin types
+filter_skin_type <- df$secondary_category %in% c(
+  "Moisturizers", "Treatments", "Cleansers", "Masks", "Sunscreen")
+
+compute_within_product_gaps(
+  df,
+  demographic_var = "skin_type",
+  filter_vec = filter_skin_type,
+  min_reviews = 20
+)
+
+# TEST 2: Identify sunscreen products with large gaps across skin tone buckets
+filter_skin_tone <- df$secondary_category == "Sunscreen"
+
+compute_within_product_gaps(
+  df,
+  demographic_var = "skin_tone",
+  filter_vec = filter_skin_tone,
+  min_reviews = 20
+)
 
 ### COUNT_KEYWORDS TEST
 
@@ -99,4 +124,88 @@ run_keyword_disparity(data = df,
   group_col = "skin_type",
   group_a = "oily",
   group_b = "normal")
+
+
+## TESTS FOR RECOMMENDATION SYSTEM
+
+# BUILD_PERSONA_VEC
+
+# Example 1: Build a persona for an oily + Medium skin tone user
+persona1 <- build_persona_vec(
+  user_vectors = user_vectors,
+  skin_type = "oily",
+  skin_tone = "Medium"
+)
+
+persona1
+
+# Example 2: Build a persona for a dry + Deep skin tone user
+persona2 <- build_persona_vec(
+  user_vectors,
+  skin_type = "dry",
+  skin_tone = "Deep"
+)
+
+persona2
+
+# Example 3: Check which demographic columns will be activated
+build_persona_vec(
+  user_vectors,
+  skin_type = "combination",
+  skin_tone = "Fair"
+)
+
+# RECOMMEND SIMILAR PRODUCTS
+
+# TEST 1:
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "combination",
+                           persona_skin_tone = "Deep",
+                           price_min = 0,
+                           price_max = 20,
+                           category = "Moisturizers",
+                           n_recs = 5
+)
+
+# TEST 2:
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "oily",
+                           persona_skin_tone = "Fair",
+                           price_min = 0,
+                           price_max = 50,
+                           category = "Sunscreen",
+                           n_recs = 5
+)
+
+# TEST 3:
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "dry",
+                           persona_skin_tone = "Medium",
+                           price_min = 0,
+                           price_max = 15,
+                           category = "Cleansers",
+                           n_recs = 5
+)
+
+# TEST 4:
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "normal",
+                           persona_skin_tone = "Light",
+                           price_min = 0,
+                           price_max = 30,
+                           category = "Cleansers",
+                           n_recs = 5
+)
+
+# TEST 5:
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "combination",
+                           persona_skin_tone = "Tan",
+                           price_min = 0,
+                           price_max = 100,
+                           category = "Cleansers",
+                           n_recs = 5
+)
+
+
 

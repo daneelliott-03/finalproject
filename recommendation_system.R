@@ -168,3 +168,21 @@ recommend_similar_products(df_rel, user_vectors,
                            category = "Cleansers",
                            n_recs = 5
 )
+
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "normal",
+                           persona_skin_tone = "Light",
+                           price_min = 0,
+                           price_max = 30,
+                           category = "Cleansers",
+                           n_recs = 5
+)
+
+recommend_similar_products(df_rel, user_vectors,
+                           persona_skin_type = "combination",
+                           persona_skin_tone = "Tan",
+                           price_min = 0,
+                           price_max = 100,
+                           category = "Cleansers",
+                           n_recs = 5
+)
