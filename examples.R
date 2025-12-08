@@ -1,4 +1,4 @@
-####TESTING################################################
+####EXAMPLES################################################
 
 source("reviews.R")
 source("demographic_analysis.R")
@@ -7,7 +7,7 @@ source("keywords.R")
 ### SUMMARIZE_RATINGS_BY_DEMOGRAPHIC TEST
 test_skin_type_cat <- summarize_ratings_by_demographic(df,
   demographic_var = "skin_type",
-  grouping_var    = "secondary_category"
+  grouping_var = "secondary_category"
 )
 
 head(test_skin_type_cat)
@@ -56,11 +56,9 @@ manual_white$total_hits_white
 problem_keywords <- c("white cast", "ashy", "grey", "gray", "chalky", "purple")
 
 neg_sunscreen <- df %>%
-  filter(
-    secondary_category == "Sunscreen",
+  filter(secondary_category == "Sunscreen",
     rating <= 3,
-    !is.na(review_text)
-  )
+    !is.na(review_text))
 
 # Run your keyword function on that exact subset
 kw_neg_sunscreen <- count_keywords(neg_sunscreen$review_text, problem_keywords)
@@ -71,44 +69,34 @@ kw_neg_sunscreen
 ## RUN_DISPARITY_TEST
 
 # TEST 1: drying for cleansers 
-run_keyword_disparity(
-  data = df,
+run_keyword_disparity(data = df,
   keyword_vec = "drying",
   category = "Cleansers",
   group_col = "skin_type",
   group_a = "oily",
-  group_b = "dry"
-)
+  group_b = "dry")
 
 # TEST 2: skincare complaints
-run_keyword_disparity(
-  data = df,
+run_keyword_disparity(data = df,
   keyword_vec = c("white cast", "ashy", "grey", "gray", "chalky", "purple"),
   category = c("Sunscreen", "Self Tanners", "Moisturizers"),
   group_col = "skin_tone_bucket",
   group_a = "Fair",
-  group_b = "Deep"
-)
+  group_b = "Deep")
 
 # TEST 3: skiny after moisturize 
-run_keyword_disparity(
-  data = df,
+run_keyword_disparity(data = df,
   keyword_vec = c("greasy", "oily", "shiny"),
   category = c("Moisturizers"),
   group_col = "skin_type",
   group_a = "oily",
-  group_b = "dry"
-)
+  group_b = "dry")
 
 # TEST 4: breakouts after treatment
-run_keyword_disparity(
-  data = df,
+run_keyword_disparity(data = df,
   keyword_vec = c("breakout", "breakouts", "acne", "pimples", "zits"),
   category = c("Treatments"),
   group_col = "skin_type",
   group_a = "oily",
-  group_b = "normal"
-)
-
-
+  group_b = "normal")
 

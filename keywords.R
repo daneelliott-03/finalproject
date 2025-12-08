@@ -30,23 +30,56 @@ count_keywords <- function(text_column, keywords_list) {
     total <- sum(str_count(clean_text, pattern), na.rm = TRUE)
     
     final_words <- c(final_words, k)
-    final_counts <- c(final_counts, total)
-  }
+    final_counts <- c(final_counts, total)}
   # the collected keyword count pairs are compiled into a data frame
   results <- data.frame(word = final_words, n = final_counts)
-  return(results %>% arrange(desc(n)))
-}
+  return(results %>% arrange(desc(n)))}
 
-#' @description This function performs a Two Sample t-test to evaluate whether 
-#' there is a  statistically significant difference in mean ratings between 
-#' two user groups  (e.g., "Fair" vs "Deep" skin tones) for a product set.
+
+#' @description Run a two-sample t-test comparing mean ratings between
+#' two user groups for a selected set of products.
 #'
+#' @param data A dataframe with at least rating, product_id, and group_col.
+#' @param target_ids A vector of product_ids to include.
+#' @param group_col A string giving the column name that defines groups
+#' @param group_a The "reference" group label
+#' @param group_b The "comparison" group label
+#'
+#' @return A one row dataframe with the rating gap (group_b - group_a),
+#'   p-value, significance flag, and group means
+run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
+  test_data <- data %>% filter(product_id %in% target_ids,
+      .data[[group_col]] %in% c(group_a, group_b))
+  
+  if (nrow(test_data) < 10) {
+    return("not enough data")}
+  
+  # runs two-sample t test on ratings for group_a vs group_b
+  res <- t.test(test_data$rating[test_data[[group_col]] == group_a],
+    test_data$rating[test_data[[group_col]] == group_b])
+  
+  # res$estimate is a length 2 named vector with the mean of each group
+  mean_a <- res$estimate[1]
+  mean_b <- res$estimate[2]
+  
+  data.frame(gap = mean_b - mean_a, 
+    p_value = res$p.value,
+    significant = res$p.value < 0.05,
+    mean_group_a = mean_a,
+    mean_group_b = mean_b,
+    n_total = nrow(test_data))}
+
+
+#' @description  This function uses a set of keywords to flag products whose
+#' reviews mention those terms, and then runs a two sample t test that compares
+#' mean ratings between two user groups on just those flagged products.
+#' 
 #' @param data A dataframe, requires a numeric rating column
 #' @param keyword_vec Character vector of keywords/phrases to search for
 #' @param category Character vector of secondary_category values to include
 #' @param group_col A string specifying the column name to group by
-#' @param group_a The control group 
-#' @param group_b The test group 
+#' @param group_a The reference group
+#' @param group_b The comparison group 
 #' 
 #' @return A dataframe with the gap, p-value, and a significance flag.
 run_keyword_disparity <- function(data, keyword_vec, category,
@@ -67,11 +100,10 @@ run_keyword_disparity <- function(data, keyword_vec, category,
     distinct(product_id) %>%
     pull(product_id)
   
-  # now run the t-test helper just on flagged products
+  # now can run the t-test helper just on flagged products
   # comparing the two groups passed in
   run_disparity_test(data = sub,
     target_ids = keyword_ids,
     group_col = group_col,
     group_a = group_a,
-    group_b = group_b)
-}
+    group_b = group_b)}
