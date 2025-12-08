@@ -1,4 +1,6 @@
-# ---------------------
+source("reviews.R")
+source("demographic_analysis.R")
+
 make_recs <- function(df,
                       persona_skin_type = NULL,
                       persona_skin_tone = NULL,
