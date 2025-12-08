@@ -21,8 +21,9 @@ similarity to recommend the best products for a specific user profile.
 
 source("reviews.R")
 source("demographic_analysis.R")
-source("disparityreviews.R")
+source("keywords.R")
 source("recommendation_system.R")
+source("sephora_data_project_example.R")
 
 
 3. Download data
@@ -51,9 +52,9 @@ recommend_similar_products(df_rel, user_vectors,
 Final Project: Product Recommendation System/ 
 ├── reviews.R # Merging reviews and products; adding category variables
 ├── demographic_analysis.R # Summarize_ratings_by_demographic, rate stability
-├── disparityreviews.R # tracks issues across groups using keywords
+├── keywords.R # tracks issues across groups using keywords
 ├── recommendation_system.R # Cosine similarity computation for final recs
-├── examples.R
+├── sephora_data_project_example.R # visuals and example cases
 ├── testing.R
 └── README.md # Project Overview (this file)
 
@@ -77,7 +78,7 @@ Rating Stability Across Demographics
 * Classifies products as stable, moderate, or volatile based on rating gaps
   * Finds products with biggest gaps
 
-# 3. disparityreviews.R
+# 3. keywords.R
 Demographic Disparity Analysis
 *Identifies products with the largest rating gaps between demographic groups
 * Extracts reviews for “volatile” products to understand why there are gaps.
@@ -94,11 +95,12 @@ Final Similarity Recommendation Pipeline
 * Collects top user ratings to generate personalized recs
 * Allows for filtering by category (e.g. moisturizer), price (0-40usd), and min reviews
 
---- 
-## Examples
-Basic visualizations of initial dataset.
-User examples of each function.
+# 5. sephora_data_project_example.R
+*Basic visualizations of rating averages in the initial dataset.
+*disparity_reviews.R - graph displaying keywords
+*User examples of each function.
 
+--- 
 ## Testing 
 
 If you run source("testing.R") and get no errors, the basic logic is working. 
