@@ -5,11 +5,9 @@
 **Purpose:** To build and test a workflow for understanding how skincare product
 ratings differ across demographics and for generating personalized product recommendations.
 
-This project:
-1. Analyzes basic rating patterns across skin tones and types.
-2. Identifies unstable products whose ratings vary significantly across groups
-3. Builds a personalized recommendation system that uses demographic matching
-and cosine similarity to recommend the best products for a specific user profile.
+This project Analyzes basic rating patterns across skin tones and types and builds a 
+personalized recommendation system that uses demographic matching and cosine 
+similarity to recommend the best products for a specific user profile.
 
 --- 
 ## Quick Start 
