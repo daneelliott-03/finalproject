@@ -2,6 +2,7 @@ library(tidyverse)
 source("reviews.R")
 source("demographic_analysis.R")
 source("keywords.R")
+source("recommendation_system.R")
 
 df_test <- tibble(product_id = c(1, 1, 1, 2, 2, 2,3, 3, 3, 3, 3, 4, 4, 4),
   author_id = c(1,2,3,1,2,3,4,5,6,4,5,7,8,9),

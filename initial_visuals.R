@@ -3,7 +3,8 @@ library(ggplot2)
 
 source("reviews.R")
 source("demographic_analysis.R")
-source("similarpersonarecs.R")
+source("recommendation_system.R")
+
 
 # initial visualizations displaying average ratings across different products 
 # and skin tones / types
