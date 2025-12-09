@@ -24,7 +24,7 @@ pattern_white <- "\\bwhite cast\\b"
 
 manual_white <- df %>%
   mutate(text_lower = str_to_lower(review_text),
-    hits_white = str_count(text_lower, pattern_white)
+         hits_white = str_count(text_lower, pattern_white)
   ) %>%
   summarise(total_hits_white = sum(hits_white, na.rm = TRUE))
 
@@ -40,8 +40,8 @@ problem_keywords <- c("white cast", "ashy", "grey", "gray", "chalky", "purple")
 
 neg_sunscreen <- df %>%
   filter(secondary_category == "Sunscreen",
-    rating <= 3,
-    !is.na(review_text))
+         rating <= 3,
+         !is.na(review_text))
 
 # Run your keyword function on that exact subset
 kw_neg_sunscreen <- count_keywords(neg_sunscreen$review_text, problem_keywords)
@@ -53,35 +53,35 @@ kw_neg_sunscreen
 
 # TEST 1: drying for cleansers 
 run_keyword_disparity(data = df,
-  keyword_vec = "drying",
-  category = "Cleansers",
-  group_col = "skin_type",
-  group_a = "oily",
-  group_b = "dry")
+                      keyword_vec = "drying",
+                      category = "Cleansers",
+                      group_col = "skin_type",
+                      group_a = "oily",
+                      group_b = "dry")
 
 # TEST 2: skincare complaints
 run_keyword_disparity(data = df,
-  keyword_vec = c("white cast", "ashy", "grey", "gray", "chalky", "purple"),
-  category = c("Sunscreen"),
-  group_col = "skin_tone_bucket",
-  group_a = "Fair",
-  group_b = "Medium")
+                      keyword_vec = c("white cast", "ashy", "grey", "gray", "chalky", "purple"),
+                      category = c("Sunscreen"),
+                      group_col = "skin_tone_bucket",
+                      group_a = "Fair",
+                      group_b = "Medium")
 
 # TEST 3: shiny after moisturize 
 run_keyword_disparity(data = df,
-  keyword_vec = c("greasy", "oily", "shiny"),
-  category = c("Moisturizers"),
-  group_col = "skin_type",
-  group_a = "oily",
-  group_b = "dry")
+                      keyword_vec = c("greasy", "oily", "shiny"),
+                      category = c("Moisturizers"),
+                      group_col = "skin_type",
+                      group_a = "oily",
+                      group_b = "dry")
 
 # TEST 4: breakouts after treatment
 run_keyword_disparity(data = df,
-  keyword_vec = c("breakout", "breakouts", "acne", "pimples", "zits"),
-  category = c("Treatments"),
-  group_col = "skin_type",
-  group_a = "oily",
-  group_b = "normal")
+                      keyword_vec = c("breakout", "breakouts", "acne", "pimples", "zits"),
+                      category = c("Treatments"),
+                      group_col = "skin_type",
+                      group_a = "oily",
+                      group_b = "normal")
 
 
 ## TESTS FOR RECOMMENDATION SYSTEM
@@ -163,6 +163,10 @@ recommend_similar_products(df_rel, user_vectors,
                            price_max = 100,
                            category = "Cleansers",
                            n_recs = 5
+<<<<<<< HEAD:sephora_data_example/sephora_data_examples.R
 )
 
 
+=======
+)
+>>>>>>> 732ae4edb08f022c07a4e1dae665a15dec697417:5_util/data_examples.R

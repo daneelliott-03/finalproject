@@ -2,18 +2,18 @@
 library(tidyverse)
 
 # product metadata
-products <- read_csv("/Users/dane75862/Desktop/final project/product_info.csv",
+products <- read_csv("/Users/sophiegideon/Desktop/final_1560/product_info.csv",
                      show_col_types = FALSE)
 # review datasets
-reviews_0_250 <- read_csv("/Users/dane75862/Desktop/final project/reviews_0-250.csv",
+reviews_0_250 <- read_csv("/Users/sophiegideon/Desktop/final_1560/reviews_0-250.csv",
                              show_col_types = FALSE)
-reviews_250_500 <- read_csv("/Users/dane75862/Desktop/final project/reviews_250-500.csv",
+reviews_250_500 <- read_csv("/Users/sophiegideon/Desktop/final_1560/reviews_250-500.csv",
                              show_col_types = FALSE)
-reviews_500_750 <- read_csv("/Users/dane75862/Desktop/final project/reviews_500-750.csv",
+reviews_500_750 <- read_csv("/Users/sophiegideon/Desktop/final_1560/reviews_500-750.csv",
                              show_col_types = FALSE)
-reviews_750_1250 <- read_csv("/Users/dane75862/Desktop/final project/reviews_750-1250.csv",
+reviews_750_1250 <- read_csv("//Users/sophiegideon/Desktop/final_1560/reviews_750-1250.csv",
                              show_col_types = FALSE)
-reviews_1250_end <- read_csv("/Users/dane75862/Desktop/final project/reviews_1250-end.csv",
+reviews_1250_end <- read_csv("//Users/sophiegideon/Desktop/final_1560/reviews_1250-end.csv",
                              show_col_types = FALSE)
 
 # needed to standardize ID column types
