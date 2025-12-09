@@ -28,18 +28,6 @@ df_rel <- df %>%
     high_rating = rating >=4
   )
 
-# predict probability of a user granting a high rating (4+)
-glm_interact <- glm(
-  high_rating ~ 
-    skin_type * secondary_category +
-    skin_tone_bucket * secondary_category +
-    price_usd,
-  data = df_rel,
-  family = binomial
-)
-summary(glm_interact)
-
-
 # user demographic dummy matrix
 user_demo <- df_rel %>%
   select(author_id, skin_type, skin_tone_bucket) %>%
