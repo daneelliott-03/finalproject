@@ -15,7 +15,7 @@ similarity to recommend the best products for a specific user profile.
 ```r
 1. Install required packages:
 
-   install.packages(c("tidyverse", "dplyr", "ggplot2" kableExtra", "fastDummies"))
+   install.packages(c("tidyverse", "dplyr", "ggplot2", kableExtra", "fastDummies"))
 
 2. Load the code
 
