@@ -208,3 +208,46 @@ top_volatile_skin_tone <- skin_tone_stability %>%
 
 kable(top_volatile_skin_type, caption = "Most volatile products across skin types.")
 kable(top_volatile_skin_tone, caption = "Most volatile products across skin tones.")
+
+
+html_1 <- kable(skin_type_cat_spread, 
+                format = "html", 
+                caption = "Spread in mean ratings across skin types by category") 
+write(html_1, file = "2_demographics/tables/skin_type_cat_spread.html") 
+
+
+html_2 <- kable(skin_tone_cat_spread, 
+                format = "html", 
+                caption = "Spread in mean ratings across skin tones by category") 
+
+write(html_2, file = "2_demographics/tables/skin_tone_cat_spread.html") 
+
+
+html_3 <- kable(skin_type_cat_vol, 
+                format = "html", 
+                caption = "Volatility across skin types by category (product-level gaps)") 
+write(html_3, file = "2_demographics/tables/skin_type_cat_vol.html") 
+
+
+html_4 <- kable(skin_type_category_summary, 
+                format = "html", 
+                caption = "Rating spread and volatility across skin types by category") 
+write(html_4, file = "2_demographics/tables/skin_type_category_summary.html") 
+
+
+html_5 <- kable(skin_tone_category_summary, 
+                format = "html", 
+                caption = "Rating spread and volatility across skin tones by category") 
+write(html_5, file = "2_demographics/tables/skin_tone_category_summary.html") 
+
+
+html_6 <- kable(top_volatile_skin_type, 
+                format = "html", 
+                caption = "Most volatile products across skin types") 
+write(html_6, file = "2_demographics/tables/top_volatile_skin_type.html") 
+
+
+html_7 <- kable(top_volatile_skin_tone, 
+                format = "html", 
+                caption = "Most volatile products across skin tones") 
+write(html_7, file = "2_demographics/tables/top_volatile_skin_tone.html")

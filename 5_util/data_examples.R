@@ -1,9 +1,10 @@
 ####EXAMPLES################################################
 
-source("reviews.R")
-source("demographic_analysis.R")
-source("keywords.R")
-source("recommendation_system.R")
+source("1_review/reviews.R")
+source("2_demographics/demographic_analysis.R")
+source("2_demographics/run_analysis.R")
+source("3_keywords/keywords.R")
+source("4_recommendation_models/recommendation_system.R")
 
 ### COUNT_KEYWORDS TEST
 
@@ -167,3 +168,7 @@ recommend_similar_products(df_rel, user_vectors,
                            price_max = 100,
                            category = "Cleansers",
                            n_recs = 5
+<<<<<<< HEAD
+=======
+)
+>>>>>>> e7dafe4953e361974ff5cdadd0ce1db2911bc53f

@@ -1,11 +1,8 @@
 ####SUMMARY VISUAL#################################################################
 
-visuals_dir <- file.path("sephora_data_example", "visuals")
-dir.create(visuals_dir, showWarnings = FALSE)
-
-source("reviews.R")
-source("demographic_analysis.R")
-source("run_analysis.R")
+source("1_review/reviews.R")
+source("2_demographics/demographic_analysis.R")
+source("2_demographics/run_analysis.R")
 
 ## graph to show summary for volatility information 
 # (% of reviews with gaps over .75 for skin tone)
@@ -65,11 +62,11 @@ tone_disparity <- ggplot(skin_tone_cat_vol_long,
     y = "Proportion of Products",
     fill = "Stability")
 
-ggsave("sephora_data_example/visuals/type_disparity.png", 
+ggsave("2_demographics/type_disparity.png", 
        plot = type_disparity, 
-       width = 6, height = 4)
+       width = 6, height = 4, bg="white")
 
-ggsave("sephora_data_example/visuals/tone_disparity.png", 
+ggsave("2_demographics/tone_disparity.png", 
        plot = tone_disparity, 
        width = 6, height = 4, bg="white")
 

@@ -2,8 +2,9 @@ library(tidyverse)
 library(fastDummies)
 library(lsa)
 
-source("reviews.R")
-source("demographic_analysis.R")
+source("1_review/reviews.R")
+source("2_demographics/demographic_analysis.R")
+source("2_demographics/run_analysis.R")
 
 relevant_cats <- c(skin_type_categories, skin_tone_categories)
 
