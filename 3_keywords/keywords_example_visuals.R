@@ -37,10 +37,3 @@ word_occurence <- ggplot(comparison_stats, aes(x = word, y = n, fill = group)) +
 
 
 ggsave("sephora_data_example/visuals/word_occurrence.png", 
-<<<<<<< HEAD:sephora_data_example/keywords_example_visuals.R
-       plot = word_occurrence, 
-       width = 6, height = 4)
-=======
-       plot = word_occurence, 
-       width = 6, height = 4, bg="white")
->>>>>>> 732ae4edb08f022c07a4e1dae665a15dec697417:3_keywords/keywords_example_visuals.R

@@ -57,7 +57,8 @@ run_keyword_disparity(data = df,
                       category = "Cleansers",
                       group_col = "skin_type",
                       group_a = "oily",
-                      group_b = "dry")
+                      group_b = "dry",
+                      min_per_group = 10)
 
 # TEST 2: skincare complaints
 run_keyword_disparity(data = df,
@@ -65,7 +66,8 @@ run_keyword_disparity(data = df,
                       category = c("Sunscreen"),
                       group_col = "skin_tone_bucket",
                       group_a = "Fair",
-                      group_b = "Medium")
+                      group_b = "Medium",
+                      min_per_group = 10)
 
 # TEST 3: shiny after moisturize 
 run_keyword_disparity(data = df,
@@ -73,7 +75,8 @@ run_keyword_disparity(data = df,
                       category = c("Moisturizers"),
                       group_col = "skin_type",
                       group_a = "oily",
-                      group_b = "dry")
+                      group_b = "dry",
+                      min_per_group = 10)
 
 # TEST 4: breakouts after treatment
 run_keyword_disparity(data = df,
@@ -81,7 +84,8 @@ run_keyword_disparity(data = df,
                       category = c("Treatments"),
                       group_col = "skin_type",
                       group_a = "oily",
-                      group_b = "normal")
+                      group_b = "normal",
+                      min_per_group = 10)
 
 
 ## TESTS FOR RECOMMENDATION SYSTEM
@@ -163,10 +167,3 @@ recommend_similar_products(df_rel, user_vectors,
                            price_max = 100,
                            category = "Cleansers",
                            n_recs = 5
-<<<<<<< HEAD:sephora_data_example/sephora_data_examples.R
-)
-
-
-=======
-)
->>>>>>> 732ae4edb08f022c07a4e1dae665a15dec697417:5_util/data_examples.R
