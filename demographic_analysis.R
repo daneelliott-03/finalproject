@@ -108,11 +108,11 @@ filter_skin_tone <- df$secondary_category %in% skin_tone_categories
 
 # summaries by skin tone with respect to categories
 skin_tone_by_category <- summarize_ratings_by_demographic(df, 
-                                                          demographic_var = "skin_tone",
+                                                          demographic_var = "skin_tone_bucket",
                                                           grouping_var = "secondary_category")
 # summaries by skin tone with respect to products
 skin_tone_by_product <- summarize_ratings_by_demographic(df, 
-                                                         demographic_var = "skin_tone", 
+                                                         demographic_var = "skin_tone_bucket", 
                                                          grouping_var = c("product_id", "product_name"))
 # rating gaps within each product
 skin_tone_gaps <- compute_within_product_gaps(df,

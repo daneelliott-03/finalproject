@@ -156,7 +156,6 @@ recommend_similar_products <- function(df_rel,
     arrange(desc(mean_rating), desc(n_reviews)) %>%
     slice_head(n = n_recs)
   
-  return(recs)
-}
+  return(recs)}
 
 
