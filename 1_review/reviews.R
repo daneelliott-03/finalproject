@@ -2,7 +2,7 @@
 library(tidyverse)
 ### NOTE: PLEASE UPDATE THE FILE PATHS TO POINT TO YOUR LOCAL DATASETS. FOR THE ANALYSIS TO RUN CORRECTLY, YOUR DATA MUST INCLUDE
 ### THE FOLLOWING COLUMNS: product data: product_id, brand_name, product_name, primary_category, secondary_category, price_usd, 
-### review data: author_id, rating, review_text, and demographic variables, and product_id for the join
+### review data: author_id, rating, review_text, price_usd and demographic variables, and product_id for the join
 # product metadata
 products <- read_csv("/Users/sophiegideon/Desktop/final_1560/product_info.csv",
                      show_col_types = FALSE)
