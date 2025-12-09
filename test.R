@@ -43,7 +43,7 @@ df_test <- tibble(product_id = c(1, 1, 1, 2, 2, 2,3, 3, 3, 3, 3, 4, 4, 4),
     "Fair", "Deep", "Deep", "Fair", "Deep",
     "Fair", "Fair", "Fair"))
 
-df_test <- df_test %>% slice(rep(1:n(), each = 10))
+df_test <- df_test %>% slice(rep(1:n(), each = 50))
 
 ## SUMMARIZE_RATINGS_BY_DEMOGRAPHIC
 test_skin_type_cat_small <- summarize_ratings_by_demographic(df_test,
