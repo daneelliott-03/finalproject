@@ -211,24 +211,24 @@ kable(top_volatile_skin_tone, caption = "Most volatile products across skin tone
 
 
 ## export tables
-md1 <- knitr::kable(skin_type_cat_spread, format = "simple") 
+md1 <- knitr::kable(skin_type_cat_spread, format = "pipe") 
 writeLines(md1, "2_demographics/tables/skin_type_cat_spread.md")
 
-md2 <- knitr::kable(skin_tone_cat_spread, format = "simple") 
+md2 <- knitr::kable(skin_tone_cat_spread, format = "pipe") 
 writeLines(md2, "2_demographics/tables/skin_tone_cat_spread.md")
 
-md3 <- knitr::kable(skin_type_cat_vol, format = "simple") 
+md3 <- knitr::kable(skin_type_cat_vol, format = "pipe") 
 writeLines(md3, "2_demographics/tables/skin_type_cat_vol.md")
 
-md4 <- knitr::kable(skin_type_category_summary, format = "simple") 
+md4 <- knitr::kable(skin_type_category_summary, format = "pipe") 
 writeLines(md4, "2_demographics/tables/skin_type_category_summary.md")
 
-md5 <- knitr::kable(skin_tone_category_summary, format = "simple") 
+md5 <- knitr::kable(skin_tone_category_summary, format = "pipe") 
 writeLines(md5, "2_demographics/tables/skin_tone_category_summary.md")
 
-md6 <- knitr::kable(top_volatile_skin_type, format = "simple") 
+md6 <- knitr::kable(top_volatile_skin_type, format = "pipe") 
 writeLines(md6, "2_demographics/tables/top_volatile_skin_type.md")
 
-md7 <- knitr::kable(top_volatile_skin_tone, format = "simple") 
+md7 <- knitr::kable(top_volatile_skin_tone, format = "pipe") 
 writeLines(md7, "2_demographics/tables/top_volatile_skin_tone.md")
 
