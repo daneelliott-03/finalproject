@@ -24,22 +24,18 @@ reviews_750_1250$author_id <- as.character(reviews_750_1250$author_id)
 reviews_1250_end$author_id <- as.character(reviews_1250_end$author_id)
 
 # binded all reviews together
-reviews <- bind_rows(
-  reviews_0_250,
+reviews <- bind_rows(reviews_0_250,
   reviews_250_500,
   reviews_500_750,
   reviews_750_1250,
-  reviews_1250_end
-)
+  reviews_1250_end)
 
 
 # potentially relevant product features
 products_small <- products %>%
-    select(
-      product_id,
+    select(product_id,
       primary_category,
       secondary_category,
-      tertiary_category,
       size,
       variation_type,
       variation_value,
@@ -49,8 +45,7 @@ products_small <- products %>%
       new,
       online_only,
       out_of_stock,
-      sephora_exclusive
-    )
+      sephora_exclusive)
   
 # reviews joined with product metadata
 df <- reviews %>%
@@ -58,44 +53,10 @@ df <- reviews %>%
 
 # trying to combine more granular skintones into five buckets
 df <- df %>%
-  mutate(
-    skin_tone_bucket = case_when(
+  mutate(skin_tone_bucket = case_when(
       skin_tone %in% c("fair", "porcelain", "fairLight") ~ "Fair",
       skin_tone %in% c("light", "lightMedium") ~ "Light",
       skin_tone %in% c("medium", "mediumTan", "olive") ~ "Medium",
       skin_tone %in% c("tan") ~ "Tan",
       skin_tone %in% c("deep", "rich", "dark") ~ "Deep",
-      TRUE ~ NA_character_
-    )
-  )
-
-# summary table assessing rating distributions across secondary categories. 
-# has mean, sd, IQR, as well as proportion of high and low ratings
-cat_summary <- df %>%
-    group_by(secondary_category) %>%
-    summarise(
-      n_reviews = n(),
-      mean_rating = mean(rating, na.rm = TRUE),
-      sd_rating = sd(rating,na.rm = TRUE),
-      p_low = mean(rating <= 2, na.rm = TRUE),
-      p_high = mean(rating == 5, na.rm = TRUE),
-      iqr_rating = IQR(rating,  na.rm = TRUE)
-    ) %>%
-    arrange(desc(n_reviews))
-  
-# variability at the product level with the products that drive divisive 
-# consumer sentiment
-variability_summary <- df %>%
-    group_by(product_id, product_name, brand_name, primary_category) %>%
-    summarise(
-      n_reviews = n(),
-      mean_rating = mean(rating, na.rm = TRUE),
-      sd_rating = sd(rating, na.rm = TRUE),
-      p_extreme = mean(rating == 1 | rating == 5, na.rm = TRUE),
-      .groups = "drop"
-    ) %>%
-    arrange(desc(sd_rating))
-
-df
-cat_summary
-variability_summary
+      TRUE ~ NA_character_))

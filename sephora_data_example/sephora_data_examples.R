@@ -5,47 +5,6 @@ source("demographic_analysis.R")
 source("keywords.R")
 source("recommendation_system.R")
 
-### SUMMARIZE_RATINGS_BY_DEMOGRAPHIC TEST
-test_skin_type_cat <- summarize_ratings_by_demographic(df,
-  demographic_var = "skin_type",
-  grouping_var = "secondary_category"
-)
-
-head(test_skin_type_cat)
-summary(test_skin_type_cat$mean_rating)
-
-test_skin_tone_cat <- summarize_ratings_by_demographic(df,
-  demographic_var = "skin_tone",
-  grouping_var = "secondary_category"
-)
-
-head(test_skin_tone_cat)
-summary(test_skin_tone_cat$mean_rating)
-
-
-### COMPUTE_WITHIN_PRODUCT_GAPS TEST
-
-# TEST 1: Identify products with large rating gaps across skin types
-filter_skin_type <- df$secondary_category %in% c(
-  "Moisturizers", "Treatments", "Cleansers", "Masks", "Sunscreen")
-
-compute_within_product_gaps(
-  df,
-  demographic_var = "skin_type",
-  filter_vec = filter_skin_type,
-  min_reviews = 20
-)
-
-# TEST 2: Identify sunscreen products with large gaps across skin tone buckets
-filter_skin_tone <- df$secondary_category == "Sunscreen"
-
-compute_within_product_gaps(
-  df,
-  demographic_var = "skin_tone",
-  filter_vec = filter_skin_tone,
-  min_reviews = 20
-)
-
 ### COUNT_KEYWORDS TEST
 
 ## TEST 1: counting keywords
@@ -64,8 +23,7 @@ kw_white
 pattern_white <- "\\bwhite cast\\b"
 
 manual_white <- df %>%
-  mutate(
-    text_lower = str_to_lower(review_text),
+  mutate(text_lower = str_to_lower(review_text),
     hits_white = str_count(text_lower, pattern_white)
   ) %>%
   summarise(total_hits_white = sum(hits_white, na.rm = TRUE))
