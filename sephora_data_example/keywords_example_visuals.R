@@ -1,4 +1,3 @@
-
 visuals_dir <- file.path("sephora_data_example", "visuals")
 dir.create(visuals_dir, showWarnings = FALSE)
 
@@ -40,4 +39,3 @@ word_occurence <- ggplot(comparison_stats, aes(x = word, y = n, fill = group)) +
 ggsave("sephora_data_example/visuals/word_occurrence.png", 
        plot = word_occurrence, 
        width = 6, height = 4)
-

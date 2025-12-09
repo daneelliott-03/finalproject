@@ -166,4 +166,3 @@ recommend_similar_products(df_rel, user_vectors,
 )
 
 
-
