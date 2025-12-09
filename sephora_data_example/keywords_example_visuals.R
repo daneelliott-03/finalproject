@@ -47,6 +47,7 @@ word_occurence <- ggplot(comparison_stats, aes(x = word, y = n, fill = group)) +
     x = NULL,
     fill = "User Group")
 
+
 ggsave(file.path("visuals", "word_occurence.png"), plot = word_occurence, width=6, height=4)
 
 
