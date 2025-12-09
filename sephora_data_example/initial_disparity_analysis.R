@@ -1,6 +1,7 @@
 ####SUMMARY VISUAL#################################################################
 
-dir.create("visuals")
+visuals_dir <- file.path("sephora_data_example", "visuals")
+dir.create(visuals_dir, showWarnings = FALSE)
 
 source("reviews.R")
 source("demographic_analysis.R")
@@ -63,5 +64,14 @@ tone_disparity <- ggplot(skin_tone_cat_vol_long,
     y = "Proportion of Products",
     fill = "Stability")
 
-ggsave(file.path("visuals", "type_disparity.png"), plot = type_disparity, width=6, height=4)
-ggsave(file.path("visuals", "tone_disparity.png"), plot = tone_disparity, width=6, height=4)
+
+
+ggsave("sephora_data_example/visuals/type_disparity.png", 
+       plot = type_disparity, 
+       width = 6, height = 4)
+
+
+ggsave("sephora_data_example/visuals/tone_disparity.png", 
+       plot = tone_disparity, 
+       width = 6, height = 4)
+
