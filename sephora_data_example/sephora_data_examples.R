@@ -104,10 +104,10 @@ run_keyword_disparity(data = df,
 # TEST 2: skincare complaints
 run_keyword_disparity(data = df,
   keyword_vec = c("white cast", "ashy", "grey", "gray", "chalky", "purple"),
-  category = c("Sunscreen", "Self Tanners", "Moisturizers"),
+  category = c("Sunscreen"),
   group_col = "skin_tone_bucket",
   group_a = "Fair",
-  group_b = "Deep")
+  group_b = "Medium")
 
 # TEST 3: shiny after moisturize 
 run_keyword_disparity(data = df,
