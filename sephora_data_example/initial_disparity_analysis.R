@@ -5,6 +5,7 @@ dir.create(visuals_dir, showWarnings = FALSE)
 
 source("reviews.R")
 source("demographic_analysis.R")
+source("run_analysis.R")
 
 ## graph to show summary for volatility information 
 # (% of reviews with gaps over .75 for skin tone)
@@ -70,5 +71,5 @@ ggsave("sephora_data_example/visuals/type_disparity.png",
 
 ggsave("sephora_data_example/visuals/tone_disparity.png", 
        plot = tone_disparity, 
-       width = 6, height = 4)
+       width = 6, height = 4, bg="white")
 
