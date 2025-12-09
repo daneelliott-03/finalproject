@@ -1,7 +1,10 @@
-####  KEYWORDSSSS ################################################
+####  KEYWORDS ################################################
 library(tidyverse)
-source("reviews.R")
-source("demographic_analysis.R")
+
+source("1_review/reviews.R")
+source("2_demographics/demographic_analysis.R")
+source("2_demographics/run_analysis.R")
+
 
 #' @description This function loops through a list of keywords and counts 
 #' how many times each one appears in a text column.
@@ -51,16 +54,11 @@ count_keywords <- function(text_column, keywords_list) {
 #'
 #' @return A one row dataframe with the rating gap (group_b - group_a),
 #'   p-value, significance flag, and group means
-run_disparity_test <- function(data, target_ids, group_col, group_a, group_b, min_per_group = 10) {
+run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
   test_data <- data %>% filter(product_id %in% target_ids,
       .data[[group_col]] %in% c(group_a, group_b))
   
-  
-  n_a <- sum(test_data[[group_col]] == group_a, na.rm = TRUE)
-  n_b <- sum(test_data[[group_col]] == group_b, na.rm = TRUE)
-  
-  
-  if (n_a < min_per_group|| n_b < min_per_group) {
+  if (nrow(test_data) < 10) {
     return("not enough data")}
   
   # runs two-sample t test on ratings for group_a vs group_b
@@ -78,6 +76,7 @@ run_disparity_test <- function(data, target_ids, group_col, group_a, group_b, mi
     mean_group_b = mean_b,
     n_total = nrow(test_data))}
 
+
 #' @description  This function uses a set of keywords to flag products whose
 #' reviews mention those terms, and then runs a two sample t test that compares
 #' mean ratings between two user groups on just those flagged products.
@@ -91,7 +90,7 @@ run_disparity_test <- function(data, target_ids, group_col, group_a, group_b, mi
 #' 
 #' @return A dataframe with the gap, p-value, and a significance flag.
 run_keyword_disparity <- function(data, keyword_vec, category,
-                                  group_col, group_a, group_b, min_per_group = 10) {
+                                  group_col, group_a, group_b) {
   sub <- data %>%
     filter(secondary_category %in% category,
       !is.na(review_text),
@@ -114,5 +113,4 @@ run_keyword_disparity <- function(data, keyword_vec, category,
     target_ids = keyword_ids,
     group_col = group_col,
     group_a = group_a,
-    group_b = group_b,
-    min_per_group = min_per_group)}
+    group_b = group_b)}

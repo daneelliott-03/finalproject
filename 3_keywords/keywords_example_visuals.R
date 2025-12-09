@@ -1,5 +1,3 @@
-visuals_dir <- file.path("sephora_data_example", "visuals")
-dir.create(visuals_dir, showWarnings = FALSE)
 
 # top_volatile_skin_tone is the subset of 
 # products with large rating gaps across tones
@@ -36,11 +34,7 @@ word_occurence <- ggplot(comparison_stats, aes(x = word, y = n, fill = group)) +
     fill = "User Group")
 
 
-ggsave("sephora_data_example/visuals/word_occurrence.png", 
-<<<<<<< HEAD:sephora_data_example/keywords_example_visuals.R
-       plot = word_occurrence, 
-       width = 6, height = 4)
-=======
+ggsave("3_keywords/word_occurrence.png", 
        plot = word_occurence, 
        width = 6, height = 4, bg="white")
->>>>>>> 732ae4edb08f022c07a4e1dae665a15dec697417:3_keywords/keywords_example_visuals.R
+
