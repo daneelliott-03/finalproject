@@ -51,15 +51,20 @@ count_keywords <- function(text_column, keywords_list) {
 #' @param group_col A string giving the column name that defines groups
 #' @param group_a The reference group label
 #' @param group_b The comparison group label
+#' @param min_per_group Min number of reviews required per group 
 #'
 #' @return A one row dataframe with the rating gap (group_b - group_a),
 #'   p-value, significance flag, and group means
-run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
+run_disparity_test <- function(data, target_ids, group_col, group_a, group_b, min_per_group = 10) {
   test_data <- data %>% filter(product_id %in% target_ids,
       .data[[group_col]] %in% c(group_a, group_b))
   
-  if (nrow(test_data) < 10) {
+  n_a <- sum(test_data[[group_col]] == group_a, na.rm = TRUE)
+  n_b <- sum(test_data[[group_col]] == group_b, na.rm = TRUE)
+
+  if (n_a < min_per_group || n_b < min_per_group) {
     return("not enough data")}
+
   
   # runs two-sample t test on ratings for group_a vs group_b
   res <- t.test(test_data$rating[test_data[[group_col]] == group_a],
@@ -74,6 +79,8 @@ run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
     significant = res$p.value < 0.05,
     mean_group_a = mean_a,
     mean_group_b = mean_b,
+    n_a = n_a,
+    n_b = n_b,
     n_total = nrow(test_data))}
 
 
@@ -87,10 +94,11 @@ run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
 #' @param group_col A string specifying the column name to group by
 #' @param group_a The reference group
 #' @param group_b The comparison group 
+#' @param min_per_group Min number of reviews required per group 
 #' 
 #' @return A dataframe with the gap, p-value, and a significance flag.
 run_keyword_disparity <- function(data, keyword_vec, category,
-                                  group_col, group_a, group_b) {
+                                  group_col, group_a, group_b, min_per_group = 10) {
   sub <- data %>%
     filter(secondary_category %in% category,
       !is.na(review_text),
@@ -113,4 +121,5 @@ run_keyword_disparity <- function(data, keyword_vec, category,
     target_ids = keyword_ids,
     group_col = group_col,
     group_a = group_a,
-    group_b = group_b)}
+    group_b = group_b,
+    min_per_group = min_per_group)}
