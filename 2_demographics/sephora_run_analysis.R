@@ -29,8 +29,7 @@ skin_type_categories <- c("Moisturizers",
                           "Cleansers",
                           "Masks", 
                           "Sunscreen",
-                          "Self Tanners", 
-                          "Sunscreen")
+                          "Self Tanners")
 
 filter_skin_type <- df$secondary_category %in% skin_type_categories
 
@@ -61,8 +60,7 @@ skin_tone_categories <- c("Self Tanners",
                           "Sunscreen", "Moisturizers", 
                           "Treatments", 
                           "Cleansers",
-                          "Masks", 
-                          "Sunscreen")
+                          "Masks")
 
 filter_skin_tone <- df$secondary_category %in% skin_tone_categories
 
