@@ -167,8 +167,4 @@ recommend_similar_products(df_rel, user_vectors,
                            price_min = 0,
                            price_max = 100,
                            category = "Cleansers",
-                           n_recs = 5
-<<<<<<< HEAD
-=======
-)
->>>>>>> e7dafe4953e361974ff5cdadd0ce1db2911bc53f
+                           n_recs = 5)
