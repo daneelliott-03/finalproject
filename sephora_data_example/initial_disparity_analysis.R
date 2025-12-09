@@ -66,12 +66,6 @@ tone_disparity <- ggplot(skin_tone_cat_vol_long,
 
 
 
-ggsave("sephora_data_example/visuals/type_disparity.png", 
-       plot = type_disparity, 
-       width = 6, height = 4)
-
-
-ggsave("sephora_data_example/visuals/tone_disparity.png", 
-       plot = tone_disparity, 
-       width = 6, height = 4)
+ggsave(file.path(getwd(), "sephora_data_example", "visuals", "type_disparity.png"))
+ggsave(file.path(getwd(), "sephora_data_example", "visuals", "tone_disparity.png"))
 
