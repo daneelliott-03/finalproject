@@ -51,11 +51,16 @@ count_keywords <- function(text_column, keywords_list) {
 #'
 #' @return A one row dataframe with the rating gap (group_b - group_a),
 #'   p-value, significance flag, and group means
-run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
+run_disparity_test <- function(data, target_ids, group_col, group_a, group_b, min_per_group = 10) {
   test_data <- data %>% filter(product_id %in% target_ids,
       .data[[group_col]] %in% c(group_a, group_b))
   
-  if (nrow(test_data) < 10) {
+  
+  n_a <- sum(test_data[[group_col]] == group_a, na.rm = TRUE)
+  n_b <- sum(test_data[[group_col]] == group_b, na.rm = TRUE)
+  
+  
+  if (n_a < min_per_group|| n_b < min_per_group) {
     return("not enough data")}
   
   # runs two-sample t test on ratings for group_a vs group_b
@@ -73,7 +78,6 @@ run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
     mean_group_b = mean_b,
     n_total = nrow(test_data))}
 
-
 #' @description  This function uses a set of keywords to flag products whose
 #' reviews mention those terms, and then runs a two sample t test that compares
 #' mean ratings between two user groups on just those flagged products.
@@ -87,7 +91,7 @@ run_disparity_test <- function(data, target_ids, group_col, group_a, group_b) {
 #' 
 #' @return A dataframe with the gap, p-value, and a significance flag.
 run_keyword_disparity <- function(data, keyword_vec, category,
-                                  group_col, group_a, group_b) {
+                                  group_col, group_a, group_b, min_per_group = 10) {
   sub <- data %>%
     filter(secondary_category %in% category,
       !is.na(review_text),
@@ -110,4 +114,5 @@ run_keyword_disparity <- function(data, keyword_vec, category,
     target_ids = keyword_ids,
     group_col = group_col,
     group_a = group_a,
-    group_b = group_b)}
+    group_b = group_b,
+    min_per_group = min_per_group)}

@@ -102,7 +102,8 @@ kw_disp_drying_cleanser_small <- run_keyword_disparity(data = df_test,
   category = "Cleansers",
   group_col = "skin_type",
   group_a = "oily",
-  group_b = "dry")
+  group_b = "dry",
+  min_per_group = 10)
 
 kw_disp_drying_cleanser_small
 
@@ -112,7 +113,8 @@ kw_disp_tone_small <- run_keyword_disparity(data = df_test,
   category = c("Sunscreen", "Moisturizers"),
   group_col = "skin_tone_bucket",
   group_a = "Fair",
-  group_b = "Deep")
+  group_b = "Deep",
+  min_per_group = 10)
 
 kw_disp_tone_small
 
@@ -122,7 +124,8 @@ kw_disp_greasy_moist_small <- run_keyword_disparity(data = df_test,
   category = "Moisturizers",
   group_col = "skin_type",
   group_a = "oily",
-  group_b = "dry")
+  group_b = "dry",
+  min_per_group = 10)
 
 kw_disp_greasy_moist_small
 
@@ -132,7 +135,8 @@ kw_disp_breakouts_treat_small <- run_keyword_disparity(data = df_test,
   category = "Treatments",
   group_col = "skin_type",
   group_a = "oily",
-  group_b = "normal")
+  group_b = "normal",
+  min_per_group = 10)
 
 kw_disp_breakouts_treat_small
 
