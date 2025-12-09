@@ -1,4 +1,6 @@
 ####SUMMARY VISUAL##################################################################
+dir.create("visuals")
+
 source("reviews.R")
 source("demographic_analysis.R")
 
@@ -18,7 +20,7 @@ skin_type_cat_vol_long <- skin_type_cat_vol %>%
       prop_moderate = "Moderate",
       prop_volatile = "Volatile"))
 
-ggplot(skin_type_cat_vol_long,
+type_disparity <- ggplot(skin_type_cat_vol_long,
   aes(x = secondary_category, y = prop, fill = stability)) +
   geom_col() +
   coord_flip() +
@@ -46,7 +48,7 @@ skin_tone_cat_vol_long <- skin_tone_cat_vol %>%
       prop_moderate = "Moderate",
       prop_volatile = "Volatile"))
 
-ggplot(skin_tone_cat_vol_long,
+tone_disparity <- ggplot(skin_tone_cat_vol_long,
   aes(x = secondary_category, y = prop, fill = stability)) +
   geom_col() +
   coord_flip() +
@@ -59,3 +61,6 @@ ggplot(skin_tone_cat_vol_long,
     x = NULL,
     y = "Proportion of Products",
     fill = "Stability")
+
+ggsave(file.path("visuals", "type_disparity.png"), plot = type_disparity, width=6, height=4)
+ggsave(file.path("visuals", "tone_disparity.png"), plot = tone_disparity, width=6, height=4)

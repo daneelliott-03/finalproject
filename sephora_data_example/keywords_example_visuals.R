@@ -1,3 +1,5 @@
+dir.create("visuals")
+
 # top_volatile_skin_tone is the subset of 
 # products with large rating gaps across tones
 volatile_ids <- top_volatile_skin_tone$product_id[1:5]
@@ -35,7 +37,7 @@ fair_keyword_stats <- df %>%
 
 comparison_stats <- bind_rows(deep_keyword_stats, fair_keyword_stats)
 
-ggplot(comparison_stats, aes(x = word, y = n, fill = group)) +
+word_occurence <- ggplot(comparison_stats, aes(x = word, y = n, fill = group)) +
   geom_col() +
   scale_fill_manual(values = c("Fair Skin" = "#F9E4D4", "Deep Skin" = "#3B2219")) +
   theme_minimal() +
@@ -43,3 +45,7 @@ ggplot(comparison_stats, aes(x = word, y = n, fill = group)) +
     y = "Count of Mentions",
     x = NULL,
     fill = "User Group")
+
+ggsave(file.path("visuals", "word_occurence.png"), plot = word_occurence, width=6, height=4)
+
+
