@@ -79,6 +79,9 @@ run_disparity_test <- function(data, target_ids, group_col, group_a, group_b, mi
     significant = res$p.value < 0.05,
     mean_group_a = mean_a,
     mean_group_b = mean_b,
+    statistic = res$statistic,
+    ci_lower = res$conf.int[1],
+    ci_upper = res$conf.int[2],
     n_a = n_a,
     n_b = n_b,
     n_total = nrow(test_data))}
