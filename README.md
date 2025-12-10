@@ -19,11 +19,21 @@ similarity to recommend the best products for a specific user profile.
 
 2. Load the code
 
-source("reviews.R")
-source("demographic_analysis.R")
-source("keywords.R")
-source("recommendation_system.R")
-source("sephora_data_project_example.R")
+source("1_review/reviews.R")
+source("1_review/sephora_reviewer_discrepancy.R")
+
+source("2_demographics/demographic_analysis.R")
+source("2_demographics/sephora_run_analysis.R")
+source("2_demographics/sephora_visual_disparity_analysis.R") # sub file
+
+source("3_keywords/keywords.R")
+source("3_keywords/sephora_keywords_example_visuals.R") # sub file
+
+source("4_recommendation_models/regression.R")
+source("4_recommendation_models/recommendation_system.R")
+
+source("5_util/data_examples.R")
+source("5_util/test.R")
 
 
 3. Download data
@@ -50,60 +60,50 @@ recommend_similar_products(df_rel, user_vectors,
 ---
 ## Repo Structure 
 Final Project: Product Recommendation System/ 
-├── reviews.R # Merging reviews and products; adding category variables
-├── demographic_analysis.R # Summarize_ratings_by_demographic, rate stability
-├── keywords.R # tracks issues across groups using keywords
-├── recommendation_system.R # Cosine similarity computation for final recs
-├── sephora_data_project_example.R # visuals and example cases
-├── testing.R
+├── 1_review # Merging reviews and products; standardize variables
+├── 2_demographics # analyzes rating differences across skin tones/types; identifies product/category level gaps
+├── 3_keywords # extracts key word patterns and tests rating disparities
+├── recommendation_system.R # computes cosine similarity computation for final recs
+├── 5_utils # example outputs and testing
 └── README.md # Project Overview (this file)
 
 ---
 ## Modules 
 
-# 1. reviews.R 
-Data Preparation
+# 1_review
+reviews.R
 * Merges review data with product metadata
-* Adds category variables (major_category, is_complexion) 
-* Functions needed to summarizes ratings by product and category
+* Standardize and select certain variables
 
-# 2. demographic_analysis.R 
-Demographic Rating Comparions
-* summarize_ratings_by_demographic()
-  * Calculates mean, sd, low/high ratings by skin tone and type
-* compute_within_product_gaps()
-  * Measures rating gaps across demograpgic groups within each product
-Rating Stability Across Demographics
-* Computes rating across skin types and tones at the category level
-* Classifies products as stable, moderate, or volatile based on rating gaps
-  * Finds products with biggest gaps
+# 2_demographics
+demographic_analysis.R & sephora_run_analysis.R
+* Computes rating summaries by demographic group across categories and products
+* Identifies products with large rating gaps across demographics
+* Classifies products as stable, moderate or volatile based on demographic rating differences
 
-# 3. keywords.R
-Demographic Disparity Analysis
-*Identifies products with the largest rating gaps between demographic groups
-* Extracts reviews for “volatile” products to understand why there are gaps.
-* Uses a keyword text analysis to compare review language across groups 
+# 3_keywords
+keywords.R
+* Determines how often each keyword appears in review text
+* Conducts a t-test comparing mean ratings between demographic groups
+* Flags products whose reviews contain specific keywords
+* Determine whether specific groups tend to rate keyword associated products differently
   * e.g., “white cast,” “ashy,” “grey,” “chalky”
 
-# 4. recommendation_system.R
-Predictive Model
+# 4_recommendation_models
+regression.R
 * Logistic regression to estimte probability of giving a high rating 
 * Interaction between demographic and product category
-Final Similarity Recommendation Pipeline
+recommendation_system.R
 * Forms demographic and behavior user vectors
 * Computes cosine similarity to find users most similar to a persona
 * Collects top user ratings to generate personalized recs
 * Allows for filtering by category (e.g. moisturizer), price (0-40usd), and min reviews
 
-# 5. sephora_data_project_example.R
-* Basic visualizations of rating averages in the initial dataset.
-* disparity_reviews.R - graph displaying keywords
+# 5_util
+data_examples.R
 * User examples of each function.
-
---- 
-## Testing 
-
-If you run source("testing.R") and get no errors, the basic logic is working. 
+tests.R
+* Tests of each function
 
 --- 
 ## Significance 
