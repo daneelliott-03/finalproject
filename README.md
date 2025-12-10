@@ -90,20 +90,16 @@ keywords.R
   * e.g., “white cast,” “ashy,” “grey,” “chalky”
 
 # 4_recommendation_models
-regression.R
+regression.R & recommendation_system.R
 * Logistic regression to estimte probability of giving a high rating 
-* Interaction between demographic and product category
-recommendation_system.R
 * Forms demographic and behavior user vectors
 * Computes cosine similarity to find users most similar to a persona
 * Collects top user ratings to generate personalized recs
 * Allows for filtering by category (e.g. moisturizer), price (0-40usd), and min reviews
 
 # 5_util
-data_examples.R
-* User examples of each function.
-tests.R
-* Tests of each function
+data_examples.R & tests.R
+* User examples and tests of each function.
 
 --- 
 ## Significance 
