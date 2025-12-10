@@ -4,7 +4,7 @@ library(lsa)
 
 source("1_review/reviews.R")
 source("2_demographics/demographic_analysis.R")
-source("2_demographics/run_analysis.R")
+source("2_demographics/sephora_run_analysis.R")
 
 relevant_cats <- c(skin_type_categories, skin_tone_categories)
 

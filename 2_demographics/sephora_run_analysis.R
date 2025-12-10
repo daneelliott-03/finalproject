@@ -29,7 +29,8 @@ skin_type_categories <- c("Moisturizers",
                           "Cleansers",
                           "Masks", 
                           "Sunscreen",
-                          "Self Tanners")
+                          "Self Tanners", 
+                          "Sunscreen")
 
 filter_skin_type <- df$secondary_category %in% skin_type_categories
 
@@ -60,7 +61,8 @@ skin_tone_categories <- c("Self Tanners",
                           "Sunscreen", "Moisturizers", 
                           "Treatments", 
                           "Cleansers",
-                          "Masks")
+                          "Masks", 
+                          "Sunscreen")
 
 filter_skin_tone <- df$secondary_category %in% skin_tone_categories
 
@@ -74,7 +76,7 @@ skin_tone_by_product <- summarize_ratings_by_demographic(df,
                                                          grouping_var = c("product_id", "product_name"))
 # rating gaps within each product
 skin_tone_gaps <- compute_within_product_gaps(df,
-                                              demographic_var = "skin_tone_bucket",
+                                              demographic_var = "skin_tone",
                                               filter_vec = filter_skin_tone,
                                               min_reviews = 20)
 
@@ -209,6 +211,8 @@ kable(top_volatile_skin_tone, caption = "Most volatile products across skin tone
 
 
 ## export tables
+dir.create("2_demographics/tables")
+
 md1 <- knitr::kable(skin_type_cat_spread, format = "pipe") 
 writeLines(md1, "2_demographics/tables/skin_type_cat_spread.md")
 
