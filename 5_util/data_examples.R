@@ -2,7 +2,7 @@
 
 source("1_review/reviews.R")
 source("2_demographics/demographic_analysis.R")
-source("2_demographics/run_analysis.R")
+source("2_demographics/sephora_run_analysis.R")
 source("3_keywords/keywords.R")
 source("4_recommendation_models/recommendation_system.R")
 
